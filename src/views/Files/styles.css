@@ -1,0 +1,22 @@
+.files-title-container {
+  background-color: #f1706a;
+  padding: 10px 0px;
+}
+
+.files-title {
+  color: #FFF;
+  font-weight: bold;
+}
+
+.files-loading {
+  justify-content: center;
+  margin: 10px 10px 10px 10px !important;
+}
+
+.files-alert {
+  margin: 10px 0;
+}
+
+.files-content {
+  padding: 10px 20px;
+}

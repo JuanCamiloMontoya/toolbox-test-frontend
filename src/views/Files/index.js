@@ -1,5 +1,7 @@
+import React from 'react'
 import { Alert, Col, Container, Form, Row, Spinner, Table } from "react-bootstrap"
 import useFiles from "./controllers"
+import './styles.css'
 
 const Files = () => {
 
@@ -14,15 +16,15 @@ const Files = () => {
 
   return (
     <Container fluid>
-      <Row style={{ backgroundColor: '#f1706a', padding: '10px 0px' }}>
+      <Row className="files-title-container">
         <Col>
-          <span style={{ color: '#FFF', fontWeight: 'bold' }}>
+          <span className='files-title'>
             React Test App
           </span>
         </Col>
       </Row>
       {status.getAll === 'loading' && (
-        <Row style={{ justifyContent: 'center', margin: '10px 0' }}>
+        <Row className='files-loading'>
           <Spinner animation="border" />
         </Row>
       )}
@@ -32,17 +34,16 @@ const Files = () => {
           variant="danger"
           onClose={onCloseErrorAlert}
           dismissible
-          style={{ justifyContent: 'center', margin: '10px 0' }}
+          className='files-alert'
         >
           <Alert.Heading>{error.getAll}</Alert.Heading>
         </Alert>
       )}
-      <Row style={{ padding: '10px 20px' }}>
+      <Row className='files-content'>
         <Col xs={12} sm={6} lg={3}>
           <Form.Select
             onChange={handleFilesSelect}
             style={{ width: `100 px` }}
-            styles={{ control: { height: 20, minHeight: 20 } }}
             defaultValue='DEFAULT'
           >
             <option value="DEFAULT"> -- Selecione -- </option>
@@ -61,16 +62,21 @@ const Files = () => {
             </tr>
           </thead>
           <tbody>
-            {files?.map(({ file, lines }, i) => (
-              lines.map(({ text, number, hex }, j) => (
-                <tr key={`${i}.${j}`}>
-                  <td>{file}</td>
-                  <td>{text}</td>
-                  <td>{number}</td>
-                  <td>{hex}</td>
-                </tr>
-              ))
-            ))}
+            {files?.map(({ file, lines }, i) => {
+              if (lines?.length > 0)
+                return (
+                  lines.map(({ text, number, hex }, j) => (
+                    <tr key={`${i}.${j}`}>
+                      <td>{file}</td>
+                      <td>{text}</td>
+                      <td>{number}</td>
+                      <td>{hex}</td>
+                    </tr>
+                  ))
+                )
+
+              return <div>Sin archivos</div>
+            })}
           </tbody>
         </Table>
       </Row>

@@ -9,7 +9,7 @@ export const filesThunks = () => {
       try {
         const route = fileName ? `/files/data?fileName=${fileName}` : '/files/data'
         const { data } = await apiInstence.get(route)
-        return data
+        return fileName ? [data] : data
       } catch (error) {
         return rejectWithValue({ message: error.toString() })
       }
@@ -18,7 +18,7 @@ export const filesThunks = () => {
 
   const getFileLists = createAsyncThunk(
     'files/file-lists',
-    async ({ }, { rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
       try {
         const { data } = await apiInstence.get('/files/list')
         return data
